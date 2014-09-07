@@ -1,15 +1,14 @@
-import os
 from setuptools import setup
 
 setup(
-    name="Jeev-Modules",
+    name="jeev-modules",
     version='0.0.1',
     author="Jacob Heinz",
     author_email="me@jh.gg",
     description="Modules for Jeev",
     license="MIT",
     keywords="chat slack bot irc jeev",
-    url="https://github.com/jhgg/jeev",
+    url="https://github.com/jhgg/jeev-modules",
     packages=['modules'],
     package_dir = {'jeev.modules':'jeev'},
     install_requires=[
