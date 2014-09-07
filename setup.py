@@ -10,7 +10,7 @@ setup(
     keywords="chat slack bot irc jeev",
     url="https://github.com/jhgg/jeev-modules",
     packages=['modules'],
-    package_dir = {'jeev.modules':'jeev'},
+    package_dir = {'jeev_modules':'modules'},
     install_requires=[
         'jeev',
     ],
