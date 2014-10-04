@@ -27,7 +27,7 @@ class TVRageParser(object):
         'Next Episode': episodeInfo,
         'Genres': lambda x: x.split(' | '),
         'RFC3339': lambda x: None,
-        'GMT+0 NODST': lambda x: datetime.fromtimestamp(int(x) + 3600, pytz.utc),
+        'GMT+0 NODST': lambda x: datetime.utcfromtimestamp(int(x) + 3600).replace(tzinfo=pytz.utc),
         'Started': lambda x: datetime.strptime(x, '%b/%d/%Y').date(),
         'Ended': lambda x: datetime.strptime(x, '%b/%d/%Y').date(),
         'Premiered': lambda x: datetime.strptime(x, '%Y').date(),
@@ -67,11 +67,11 @@ def next(message, show):
 
         if 'GMT+0 NODST' in info:
             airdate = info['GMT+0 NODST']
-            now = eastern.normalize(pytz.utc.localize(datetime.now()))
+            now = datetime.utcnow()
             if now < airdate:
                 diff = airdate - now
                 out += ' in about *%s* on *%s*' % (dateDiff(
-                    diff.seconds + diff.days * 3600 * 24
+                    diff.total_seconds()
                 ), eastern.normalize(airdate).strftime('%A, %B %d, %Y* at *%I:%M %p %Z')
                 )
 
