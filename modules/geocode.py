@@ -21,15 +21,10 @@ def validate_is_geocoder(name):
     return module
 
 
-@module.loaded
-def loaded():
-    module.g.geocoder = module.opts['using']
-
-
 @module.respond('geocode (.*)$')
 @module.async()
 def geocode(message, location):
-    g = module.g.geocoder.geocode(location)
+    g = module.opts['using'].geocode(location)
     if g:
         a = Attachment(g.address)
         a.field("Latitude", g.latitude, True)
